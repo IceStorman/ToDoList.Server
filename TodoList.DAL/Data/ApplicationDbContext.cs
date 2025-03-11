@@ -7,5 +7,5 @@ public class ApplicationDbContext : DbContext
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
-    public DbSet<TodoTask> TodoTasks;
+    public DbSet<TodoTask> TodoTasks { get; set; }
 }

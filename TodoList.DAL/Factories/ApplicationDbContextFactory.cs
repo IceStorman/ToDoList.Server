@@ -4,14 +4,14 @@ using TodoList.DAL.Data;
 
 namespace TodoList.DAL.Factories;
 
-public class ApplicationDbContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext>
+public class ApplicationDbContextFactory : IDesignTimeDbContextFactory<TodoDbContext>
 {
-    public ApplicationDbContext CreateDbContext(string[] args)
+    public TodoDbContext CreateDbContext(string[] args)
     {
-        var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
+        var optionsBuilder = new DbContextOptionsBuilder<TodoDbContext>();
         
         optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=TodoList;User Id=Vlad;Password=password;TrustServerCertificate=True");
 
-        return new ApplicationDbContext(optionsBuilder.Options);
+        return new TodoDbContext(optionsBuilder.Options);
     }
 }

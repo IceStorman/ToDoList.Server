@@ -3,9 +3,7 @@ using TodoList.DAL.Entities;
 
 namespace TodoList.DAL.Data;
 
-public class ApplicationDbContext : DbContext
+public class TodoDbContext(DbContextOptions<TodoDbContext> options) : DbContext(options)
 {
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
-
     public DbSet<TodoTask> TodoTasks { get; set; }
 }

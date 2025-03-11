@@ -10,7 +10,7 @@ using TodoList.DAL.Data;
 
 namespace TodoList.DAL.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(TodoDbContext))]
     [Migration("20250311093703_Added TodoTask table")]
     partial class AddedTodoTasktable
     {

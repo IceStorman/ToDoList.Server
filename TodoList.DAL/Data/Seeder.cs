@@ -5,9 +5,9 @@ namespace TodoList.DAL.Data;
 
 public class Seeder
 {
-    private readonly ApplicationDbContext _dbContext;
+    private readonly TodoDbContext _dbContext;
     
-    public Seeder(ApplicationDbContext dbContext)
+    public Seeder(TodoDbContext dbContext)
     {
         _dbContext = dbContext;
     }

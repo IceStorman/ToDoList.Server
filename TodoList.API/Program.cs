@@ -1,11 +1,16 @@
 using Microsoft.EntityFrameworkCore;
 using TodoList.DAL.Data;
+using TodoList.DAL.Entities;
+using TodoList.DAL.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddDbContext<TodoDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddScoped(typeof(IRepository<>));
+builder.Services.AddScoped<TodoRepository>();
 
 var app = builder.Build();
 

@@ -9,13 +9,13 @@ namespace TodoList.API.Controllers;
 public class TodosController(TodoService todoService) : ControllerBase
 {
     [HttpGet]
-    public async Task<IActionResult> GetTodos()
+    public async Task<IActionResult> GetAll()
     {
         return Ok(await todoService.GetAllTasks());
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetTodo(int id)
+    public async Task<IActionResult> Get(int id)
     {
         var task = await todoService.GetTaskById(id);
 
@@ -27,7 +27,7 @@ public class TodosController(TodoService todoService) : ControllerBase
     }
 
     [HttpPost("[action]")]
-    public async Task<IActionResult> CreateTodo([FromBody]TodoTaskDto taskDto)
+    public async Task<IActionResult> Create([FromBody]TodoTaskDto taskDto)
     {
         var task = await todoService.CreateTask(taskDto.Title);
         
@@ -39,7 +39,7 @@ public class TodosController(TodoService todoService) : ControllerBase
     }
 
     [HttpPut("[action]/{id}")]
-    public async Task<IActionResult> UpdateTodo(int id, [FromBody] TodoTaskDto taskDto)
+    public async Task<IActionResult> Update(int id, [FromBody] TodoTaskDto taskDto)
     {
         var updatedTask = await todoService.UpdateTask(id, taskDto, false);
 
@@ -51,7 +51,7 @@ public class TodosController(TodoService todoService) : ControllerBase
     }
 
     [HttpPut("[action]/{id}")]
-    public async Task<IActionResult> UpdateTodoStatus(int id, [FromBody] TodoTaskDto taskDto)
+    public async Task<IActionResult> UpdateStatus(int id, [FromBody] TodoTaskDto taskDto)
     {
         var updatedTask = await todoService.UpdateTask(id, taskDto, true);
 
@@ -63,14 +63,14 @@ public class TodosController(TodoService todoService) : ControllerBase
     }
 
     [HttpDelete("[action]/{id}")]
-    public async Task<IActionResult> DeleteTodo(int id)
+    public async Task<IActionResult> Delete(int id)
     {
         await todoService.DeleteTask(id);
         return Ok();
     }
 
     [HttpDelete("[action]")]
-    public async Task<IActionResult> DeleteAllTodos()
+    public async Task<IActionResult> DeleteAll()
     {
         await todoService.DeleteAllTasks();
         return Ok();

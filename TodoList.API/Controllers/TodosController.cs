@@ -41,7 +41,19 @@ public class TodosController(TodoService todoService) : ControllerBase
     [HttpPut("[action]/{id}")]
     public async Task<IActionResult> UpdateTodo(int id, [FromBody] TodoTaskDto taskDto)
     {
-        var updatedTask = await todoService.UpdateTask(id, taskDto);
+        var updatedTask = await todoService.UpdateTask(id, taskDto, false);
+
+        if (updatedTask is null)
+        {
+            return BadRequest();
+        }
+        return Ok(updatedTask);
+    }
+
+    [HttpPut("[action]/{id}")]
+    public async Task<IActionResult> UpdateTodoStatus(int id, [FromBody] TodoTaskDto taskDto)
+    {
+        var updatedTask = await todoService.UpdateTask(id, taskDto, true);
 
         if (updatedTask is null)
         {
@@ -58,7 +70,7 @@ public class TodosController(TodoService todoService) : ControllerBase
     }
 
     [HttpDelete("[action]")]
-    public async Task<IActionResult> DeleteAllTasks()
+    public async Task<IActionResult> DeleteAllTodos()
     {
         await todoService.DeleteAllTasks();
         return Ok();

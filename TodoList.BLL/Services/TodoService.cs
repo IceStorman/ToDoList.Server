@@ -30,17 +30,20 @@ public class TodoService(IRepository<TodoTask> todoRepository)
         return task;
     }
 
-    public async Task<TodoTask?> UpdateTask(int id, TodoTaskDto taskDto)
+    public async Task<TodoTask?> UpdateTask(int id, TodoTaskDto taskDto, bool shouldModifyOnlyStatus)
     {
         var taskToUpdate = await GetTaskById(id);
 
-        if (taskToUpdate is null || taskDto.Title.TrimStart().IsNullOrEmpty())
+        if (taskToUpdate is null || taskDto.Title.TrimStart().IsNullOrEmpty() && !shouldModifyOnlyStatus)
         {
             return null;
         }
-        
-        taskToUpdate.Title = taskDto.Title;
-        taskToUpdate.Description = taskDto.Description;
+
+        if(!shouldModifyOnlyStatus)
+        {
+            taskToUpdate.Title = taskDto.Title;
+            taskToUpdate.Description = taskDto.Description;
+        }
         taskToUpdate.Status = (int)taskDto.Status >= 0 && (int)taskDto.Status < (int)TodoTaskStatus.Invalid ?
             taskDto.Status : TodoTaskStatus.Pending;
 

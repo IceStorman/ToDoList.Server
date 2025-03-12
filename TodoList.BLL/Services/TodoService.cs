@@ -1,3 +1,4 @@
+using Microsoft.IdentityModel.Tokens;
 using TodoList.BLL.DTO;
 using TodoList.DAL.Entities;
 using TodoList.DAL.Repositories;
@@ -18,7 +19,7 @@ public class TodoService(IRepository<TodoTask> todoRepository)
 
     public async Task<TodoTask?> CreateTask(string title)
     {
-        if (string.IsNullOrEmpty(title))
+        if (title.TrimStart().IsNullOrEmpty())
         {
             return null;
         }
@@ -33,14 +34,17 @@ public class TodoService(IRepository<TodoTask> todoRepository)
     {
         var taskToUpdate = await GetTaskById(id);
 
-        if (taskToUpdate is null)
+        if (taskToUpdate is null || taskDto.Title.TrimStart().IsNullOrEmpty())
         {
             return null;
         }
         
         taskToUpdate.Title = taskDto.Title;
         taskToUpdate.Description = taskDto.Description;
-        taskToUpdate.Status = taskDto.Status;
+        taskToUpdate.Status = (int)taskDto.Status >= 0 && (int)taskDto.Status < (int)TodoTaskStatus.Invalid ?
+            taskDto.Status : TodoTaskStatus.Pending;
+
+        await todoRepository.Update(taskToUpdate);
         
         return taskToUpdate;
     }
@@ -54,5 +58,10 @@ public class TodoService(IRepository<TodoTask> todoRepository)
             return;
         }
         await todoRepository.Delete(taskToDelete);
+    }
+
+    public async Task DeleteAllTasks()
+    {
+        await todoRepository.DeleteAll();
     }
 }

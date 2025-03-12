@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using TodoList.BLL.DTO;
 using TodoList.BLL.Services;
 
@@ -55,6 +54,13 @@ public class TodosController(TodoService todoService) : ControllerBase
     public async Task<IActionResult> DeleteTodo(int id)
     {
         await todoService.DeleteTask(id);
+        return Ok();
+    }
+
+    [HttpDelete("[action]")]
+    public async Task<IActionResult> DeleteAllTasks()
+    {
+        await todoService.DeleteAllTasks();
         return Ok();
     }
 }

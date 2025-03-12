@@ -33,4 +33,10 @@ public class TodoRepository(TodoDbContext dbContext) : IRepository<TodoTask>
         dbContext.Remove(entity);
         await dbContext.SaveChangesAsync();
     }
+
+    public async Task DeleteAll()
+    {
+        dbContext.RemoveRange(await dbContext.TodoTasks.ToListAsync());
+        await dbContext.SaveChangesAsync();
+    }
 }

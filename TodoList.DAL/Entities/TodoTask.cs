@@ -15,5 +15,6 @@ public enum TodoTaskStatus
 {
     Pending,
     InProgress,
-    Completed
+    Completed,
+    Invalid
 }

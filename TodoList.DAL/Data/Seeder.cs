@@ -1,5 +1,4 @@
 using TodoList.DAL.Entities;
-using TaskStatus = TodoList.DAL.Entities.TaskStatus;
 
 namespace TodoList.DAL.Data;
 
@@ -25,19 +24,19 @@ public class Seeder
                 {
                     Title = "Wake up",
                     Description = "The hardest part of the day",
-                    Status = TaskStatus.Pending
+                    Status = TodoTaskStatus.Pending
                 },
                 new()
                 {
                     Title = "Make coffee",
                     Description = "The best part of the day",
-                    Status = TaskStatus.InProgress
+                    Status = TodoTaskStatus.InProgress
                 },
                 new()
                 {
                     Title = "Go work",
                     Description = "Just the part of the day",
-                    Status = TaskStatus.Completed
+                    Status = TodoTaskStatus.Completed
                 }
             ];
         

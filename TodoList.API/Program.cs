@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using TodoList.BLL.Services;
 using TodoList.DAL.Data;
 using TodoList.DAL.Entities;
 using TodoList.DAL.Repositories;
@@ -9,8 +10,8 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<TodoDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddScoped(typeof(IRepository<>));
-builder.Services.AddScoped<TodoRepository>();
+builder.Services.AddScoped<IRepository<TodoTask>, TodoRepository>();
+builder.Services.AddScoped<TodoService>();
 
 var app = builder.Build();
 

@@ -19,6 +19,7 @@ public class TodoRepository(TodoDbContext dbContext) : IRepository<TodoTask>
     public async Task Add(TodoTask entity)
     {
         await dbContext.AddAsync(entity);
+        await dbContext.SaveChangesAsync();
     }
 
     public async Task Update(TodoTask entity)

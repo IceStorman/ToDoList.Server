@@ -8,10 +8,10 @@ public class TodoTask
     public int Id { get; set; }
     public string? Title { get; set; }
     public string? Description { get; set; }
-    public TaskStatus? Status { get; set; }
+    public TodoTaskStatus Status { get; set; }
 }
 
-public enum TaskStatus
+public enum TodoTaskStatus
 {
     Pending,
     InProgress,

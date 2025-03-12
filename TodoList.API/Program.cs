@@ -7,6 +7,18 @@ using TodoList.DAL.Repositories;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:3000")
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+        });
+});
+
 builder.Services.AddDbContext<TodoDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -16,6 +28,7 @@ builder.Services.AddScoped<TodoService>();
 var app = builder.Build();
 
 app.MapControllers();
+app.UseCors("AllowFrontend");
 
 using (var scope = app.Services.CreateScope())
 {

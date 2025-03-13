@@ -62,6 +62,18 @@ public class TodosController(TodoService todoService) : ControllerBase
         return Ok(updatedTask);
     }
 
+    [HttpPut("[action]/{id}")]
+    public async Task<IActionResult> UpdateDueDate(int id, [FromBody] TodoTaskDto taskDto)
+    {
+        var updateTask = await todoService.UpdateDueDate(id, taskDto);
+
+        if (updateTask is null)
+        {
+            return BadRequest();
+        }
+        return Ok(updateTask);
+    }
+
     [HttpDelete("[action]/{id}")]
     public async Task<IActionResult> Delete(int id)
     {

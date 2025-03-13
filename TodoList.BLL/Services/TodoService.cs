@@ -43,9 +43,27 @@ public class TodoService(IRepository<TodoTask> todoRepository)
         {
             taskToUpdate.Title = taskDto.Title;
             taskToUpdate.Description = taskDto.Description;
+            taskToUpdate.DueDate = taskDto.DueDate;
         }
+        
         taskToUpdate.Status = (int)taskDto.Status >= 0 && (int)taskDto.Status < (int)TodoTaskStatus.Invalid ?
             taskDto.Status : TodoTaskStatus.Pending;
+
+        await todoRepository.Update(taskToUpdate);
+        
+        return taskToUpdate;
+    }
+
+    public async Task<TodoTask?> UpdateDueDate(int id, TodoTaskDto taskDto)
+    {
+        var taskToUpdate = await GetTaskById(id);
+
+        if (taskToUpdate is null)
+        {
+            return null;
+        }
+        
+        taskToUpdate.DueDate = taskDto.DueDate;
 
         await todoRepository.Update(taskToUpdate);
         

@@ -9,6 +9,7 @@ public class TodoTask
     public string? Title { get; set; }
     public string? Description { get; set; }
     public TodoTaskStatus Status { get; set; }
+    public DateTime? DueDate { get; set; }
 }
 
 public enum TodoTaskStatus

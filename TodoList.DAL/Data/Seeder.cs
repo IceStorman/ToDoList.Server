@@ -24,19 +24,22 @@ public class Seeder
                 {
                     Title = "Wake up",
                     Description = "The hardest part of the day",
-                    Status = TodoTaskStatus.Pending
+                    Status = TodoTaskStatus.Pending,
+                    DueDate = DateTime.Today
                 },
                 new()
                 {
                     Title = "Make coffee",
                     Description = "The best part of the day",
-                    Status = TodoTaskStatus.InProgress
+                    Status = TodoTaskStatus.InProgress,
+                    DueDate = DateTime.Today
                 },
                 new()
                 {
                     Title = "Go work",
                     Description = "Just the part of the day",
-                    Status = TodoTaskStatus.Completed
+                    Status = TodoTaskStatus.Completed,
+                    DueDate = DateTime.Today
                 }
             ];
         

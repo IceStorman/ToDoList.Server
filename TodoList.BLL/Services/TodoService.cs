@@ -24,7 +24,7 @@ public class TodoService(IRepository<TodoTask> todoRepository)
             return null;
         }
         
-        TodoTask task = new() { Title = title };
+        TodoTask task = new() { Title = title, DueDate = DateTime.Today};
         await todoRepository.Add(task);
         
         return task;

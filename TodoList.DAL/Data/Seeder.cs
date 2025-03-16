@@ -11,37 +11,12 @@ public class Seeder
         _dbContext = dbContext;
     }
     
-    public async Task SeedData()
+    public async Task SeedData(List<TodoTask> data)
     {
         if (_dbContext.TodoTasks.Any())
         {
             return;
         }
-
-        List<TodoTask> data = 
-            [
-                new()
-                {
-                    Title = "Wake up",
-                    Description = "The hardest part of the day",
-                    Status = TodoTaskStatus.Pending,
-                    DueDate = DateTime.Today
-                },
-                new()
-                {
-                    Title = "Make coffee",
-                    Description = "The best part of the day",
-                    Status = TodoTaskStatus.InProgress,
-                    DueDate = DateTime.Today
-                },
-                new()
-                {
-                    Title = "Go work",
-                    Description = "Just the part of the day",
-                    Status = TodoTaskStatus.Completed,
-                    DueDate = DateTime.Today
-                }
-            ];
         
         _dbContext.AddRange(data);
         

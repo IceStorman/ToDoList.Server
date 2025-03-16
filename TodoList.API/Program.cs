@@ -36,9 +36,6 @@ using (var scope = app.Services.CreateScope())
     {
         var context = scope.ServiceProvider.GetRequiredService<TodoDbContext>();
         await context.Database.MigrateAsync();
-    
-        Seeder seeder = new(context);
-        await seeder.SeedData();
     }
     catch (Exception ex)
     {

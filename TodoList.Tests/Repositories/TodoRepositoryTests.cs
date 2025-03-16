@@ -31,20 +31,6 @@ public class TodoRepositoryTests
             DueDate = DateTime.Today
         }
     ];
-    
-    private async Task<TodoDbContext> GetInMemoryDbContext()
-    {
-        var options = new DbContextOptionsBuilder<TodoDbContext>()
-            .UseInMemoryDatabase(Guid.NewGuid().ToString())
-            .Options;
-
-        var dbContext = new TodoDbContext(options);
-
-        Seeder seeder = new(dbContext);
-        await seeder.SeedData(_testDbData);
-
-        return dbContext;
-    }
 
     [Fact]
     private async Task GetAllTasks_ShouldReturnAllTasks()
@@ -134,5 +120,19 @@ public class TodoRepositoryTests
         await repository.DeleteAll();
         
         Assert.Equal([], await repository.GetAll());
+    }
+    
+    private async Task<TodoDbContext> GetInMemoryDbContext()
+    {
+        var options = new DbContextOptionsBuilder<TodoDbContext>()
+            .UseInMemoryDatabase(Guid.NewGuid().ToString())
+            .Options;
+
+        var dbContext = new TodoDbContext(options);
+
+        Seeder seeder = new(dbContext);
+        await seeder.SeedData(_testDbData);
+
+        return dbContext;
     }
 }
